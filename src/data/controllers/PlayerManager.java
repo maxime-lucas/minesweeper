@@ -9,7 +9,10 @@ public class PlayerManager implements iPlayerManager {
 
 		if( login.isEmpty() || password.isEmpty() ) throw new MissingCredentialsException();
 		
-		
+		System.out.println("[data] login");
 	}
-
+	
+	public void logout() {
+		System.out.println("[data] logout");
+	}
 }

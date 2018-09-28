@@ -1,4 +1,4 @@
-package ihm.views;
+package ihm.scenes.login;
 
 import data.MissingCredentialsException;
 import data.controllers.PlayerManager;
@@ -31,11 +31,15 @@ public class LoginSceneController {
 		playerManager = new PlayerManager();
 		
 		try {
+			
 			playerManager.login(loginValue, passwordValue);
+			main.initMenuScene();
+			
 		} catch (MissingCredentialsException e) {
 			
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Missing Credentials");
+			alert.setHeaderText("Missing Credentials");
 			alert.setContentText("The fields 'login' and 'password' are mandatory !");
 
 			alert.showAndWait();

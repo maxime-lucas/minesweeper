@@ -2,8 +2,10 @@ package ihm;
 
 import java.io.IOException;
 
-import ihm.views.LoginSceneController;
+import ihm.scenes.login.LoginSceneController;
+import ihm.scenes.menu.MenuSceneController;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -22,6 +24,13 @@ public class MainClass extends Application {
 		
 		initMainContainer();
 		initLoginScene();
+		
+		mainStage.setOnCloseRequest(e -> Platform.exit());
+	}
+	
+	public void stopApplication() {
+		mainStage.close();
+		System.exit(0);
 	}
 
 	public static void main(String[] args) {
@@ -30,7 +39,7 @@ public class MainClass extends Application {
 	
 	private void initMainContainer() {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(MainClass.class.getResource("views/MainContainer.fxml"));
+		loader.setLocation(MainClass.class.getResource("MainContainer.fxml"));
 		try {
 			mainContainer = (BorderPane) loader.load();
 			Scene scene = new Scene(mainContainer);
@@ -41,9 +50,9 @@ public class MainClass extends Application {
 		}
 	}
 	
-	private void initLoginScene() {
+	public void initLoginScene() {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(MainClass.class.getResource("views/LoginScene.fxml"));
+		loader.setLocation(MainClass.class.getResource("scenes/login/LoginScene.fxml"));
 		try {
 			VBox loginSceneContainer = (VBox) loader.load();
 			mainContainer.setCenter(loginSceneContainer);
@@ -58,10 +67,14 @@ public class MainClass extends Application {
 	
 	public void initMenuScene() {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(MainClass.class.getResource("views/MenuScene.fxml"));
+		loader.setLocation(MainClass.class.getResource("scenes/menu/MenuScene.fxml"));
 		try {
-			VBox loginSceneContainer = (VBox) loader.load();
-			mainContainer.setCenter(loginSceneContainer);
+			VBox menuSceneContainer = (VBox) loader.load();
+			mainContainer.setCenter(menuSceneContainer);
+			
+			MenuSceneController menuSceneController = loader.getController();
+			menuSceneController.setMainApp(this);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
