@@ -1,8 +1,8 @@
 package ihm.scenes.login;
 
-import data.MissingCredentialsException;
 import data.controllers.PlayerManager;
 import data.interfaces.iPlayerManager;
+import exceptions.MissingCredentialsException;
 import ihm.MainClass;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -13,12 +13,12 @@ import javafx.scene.control.TextField;
 public class LoginSceneController {
 	
 	private MainClass main;
+	private iPlayerManager playerManager = new PlayerManager();
+	
 	@FXML
 	private TextField login;
 	@FXML
 	private PasswordField password;
-	
-	private iPlayerManager playerManager;
     
 	public void setMainApp(MainClass mainApp) {
         this.main = mainApp;
@@ -27,8 +27,6 @@ public class LoginSceneController {
 	public void doClickLogin() {
 		String loginValue = login.getText();
 		String passwordValue = password.getText();
-		
-		playerManager = new PlayerManager();
 		
 		try {
 			
@@ -44,5 +42,9 @@ public class LoginSceneController {
 
 			alert.showAndWait();
 		}
+	}
+	
+	public void doClickRegister() {
+		main.initRegisterScene();
 	}
 }

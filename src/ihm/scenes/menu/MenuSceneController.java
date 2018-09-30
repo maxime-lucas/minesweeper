@@ -13,7 +13,7 @@ public class MenuSceneController {
     }
 	
 	public void doClickNewGame() {
-		System.out.println("New Game");
+		main.initChooseDifficultyScene();
 	}
 	
 	
