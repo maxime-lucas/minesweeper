@@ -40,7 +40,7 @@ public class CreateProfileSceneController implements Initializable{
 		playerManager.cancelProfileCreation();
 		main.initLoginScene();
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public void doClickConfirm() {
 

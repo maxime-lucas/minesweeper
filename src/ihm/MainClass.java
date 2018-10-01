@@ -2,7 +2,10 @@ package ihm;
 
 import java.io.IOException;
 
-import data.models.ImageManager;
+import data.controllers.PlayerManager;
+import data.interfaces.iPlayerManager;
+import exceptions.MissingFieldsException;
+import exceptions.NoExistingProfileException;
 import ihm.scenes.createProfile.CreateProfileSceneController;
 import ihm.scenes.login.LoginSceneController;
 import ihm.scenes.main.MainSceneController;
@@ -24,7 +27,7 @@ public class MainClass extends Application {
 		mainStage = primaryStage;
 		mainStage.setTitle("MineSweeper");
 		mainStage.setResizable(false);
-		mainStage.getIcons().add(ImageManager.getInstance().getIcon());
+		// mainStage.getIcons().add(ImageManager.getInstance().getIcon());
 		
 		initMainContainer();
 		initLoginScene();
@@ -35,8 +38,12 @@ public class MainClass extends Application {
 		System.exit(0);
 	}
 
-	public static void main(String[] args) {
-		launch(args);
+	public static void main(String[] args) throws MissingFieldsException, NoExistingProfileException {
+		iPlayerManager playerManager = new PlayerManager();
+		playerManager.signup("test", "testpwd");
+		
+		playerManager.login("test","testpwd");
+		// launch(args);
 	}
 	
 	private void initMainContainer() {
