@@ -2,7 +2,8 @@ package ihm.scenes.login;
 
 import data.controllers.PlayerManager;
 import data.interfaces.iPlayerManager;
-import exceptions.MissingCredentialsException;
+import exceptions.MissingFieldsException;
+import exceptions.NoExistingProfileException;
 import ihm.MainClass;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -31,9 +32,8 @@ public class LoginSceneController {
 		try {
 			
 			playerManager.login(loginValue, passwordValue);
-			main.initMenuScene();
 			
-		} catch (MissingCredentialsException e) {
+		} catch (MissingFieldsException e) {
 			
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Missing Credentials");
@@ -41,10 +41,8 @@ public class LoginSceneController {
 			alert.setContentText("The fields 'login' and 'password' are mandatory !");
 
 			alert.showAndWait();
+		} catch (NoExistingProfileException e) {
+			main.initNoExistingProfileScene();
 		}
-	}
-	
-	public void doClickRegister() {
-		main.initRegisterScene();
 	}
 }

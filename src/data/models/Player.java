@@ -1,6 +1,7 @@
 package data.models;
 
-import java.util.Date;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class Player extends SoftPlayer {
 
@@ -8,7 +9,7 @@ public class Player extends SoftPlayer {
 	private String password;
 	private String firstname;
 	private String lastname;
-	private Date dateOfBirth;
+	private java.util.Date dateOfBirth;
 	private Integer nbWin;
 	private Integer nbForfeit;
 	private Integer nbPlay;
@@ -48,11 +49,11 @@ public class Player extends SoftPlayer {
 		this.lastname = lastname;
 	}
 
-	public Date getDateOfBirth() {
+	public java.util.Date getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(java.util.Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
@@ -85,6 +86,9 @@ public class Player extends SoftPlayer {
 	}
 	
 	public String toString() {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
 		StringBuilder sb = new StringBuilder();
 		sb.append("[Player]");
 		sb.append("\n idPlayer=").append(this.getIdPlayer());
@@ -92,7 +96,7 @@ public class Player extends SoftPlayer {
 		sb.append("\n firstname=").append(this.getFirstname());
 		sb.append("\n lastname=").append(this.getLastname());
 		sb.append("\n password=").append(this.getPassword());
-		sb.append("\n dateOfBirth=").append(this.getDateOfBirth());
+		sb.append("\n dateOfBirth=").append(sdf.format(this.getDateOfBirth()));
 		sb.append("\n nbWin=").append(this.getNbWin());
 		sb.append("\n nbForfeit=").append(this.getNbForfeit());
 		sb.append("\n nbPlay=").append(this.getNbPlay());

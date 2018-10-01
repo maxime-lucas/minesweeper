@@ -2,17 +2,15 @@ package ihm;
 
 import java.io.IOException;
 
-import data.models.GameDifficulty;
-import ihm.scenes.game.ChooseDifficultySceneController;
-import ihm.scenes.game.easy.GameSceneEasyController;
+import data.models.ImageManager;
+import ihm.scenes.createProfile.CreateProfileSceneController;
 import ihm.scenes.login.LoginSceneController;
-import ihm.scenes.menu.MenuSceneController;
-import ihm.scenes.register.RegisterSceneController;
+import ihm.scenes.main.MainSceneController;
+import ihm.scenes.noExistingProfile.NoExistingProfileSceneController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -25,6 +23,8 @@ public class MainClass extends Application {
 	public void start(Stage primaryStage) {
 		mainStage = primaryStage;
 		mainStage.setTitle("MineSweeper");
+		mainStage.setResizable(false);
+		mainStage.getIcons().add(ImageManager.getInstance().getIcon());
 		
 		initMainContainer();
 		initLoginScene();
@@ -45,6 +45,8 @@ public class MainClass extends Application {
 		try {
 			mainContainer = (BorderPane) loader.load();
 			Scene scene = new Scene(mainContainer);
+			String css = getClass().getResource("style.css").toExternalForm();
+			scene.getStylesheets().addAll(css);
 			mainStage.setScene(scene);
 			mainStage.show();
 		} catch (IOException e) {
@@ -67,75 +69,51 @@ public class MainClass extends Application {
 		}
 	}
 	
-	public void initMenuScene() {
+	public void initNoExistingProfileScene() {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(MainClass.class.getResource("scenes/menu/MenuScene.fxml"));
+		loader.setLocation(MainClass.class.getResource("scenes/noExistingProfile/noExistingProfileScene.fxml"));
 		try {
-			VBox menuSceneContainer = (VBox) loader.load();
-			mainContainer.setCenter(menuSceneContainer);
+			VBox loginSceneContainer = (VBox) loader.load();
+			mainContainer.setCenter(loginSceneContainer);
 			
-			MenuSceneController menuSceneController = loader.getController();
-			menuSceneController.setMainApp(this);
+			NoExistingProfileSceneController noExistingProfileSceneController = loader.getController();
+			noExistingProfileSceneController.setMainApp(this);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void initRegisterScene() {
+	public void initCreateProfileScene() {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(MainClass.class.getResource("scenes/register/RegisterScene.fxml"));
+		loader.setLocation(MainClass.class.getResource("scenes/createProfile/CreateProfileScene.fxml"));
 		try {
-			VBox registerSceneContainer = (VBox) loader.load();
-			mainContainer.setCenter(registerSceneContainer);
+			VBox createProfileSceneContainer = (VBox) loader.load();
+			mainContainer.setCenter(createProfileSceneContainer);
 			
-			RegisterSceneController registerSceneController = loader.getController();
-			registerSceneController.setMainApp(this);
+			CreateProfileSceneController createProfileSceneController = loader.getController();
+			createProfileSceneController.setMainApp(this);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void initChooseDifficultyScene() {
+	public void initMainScene() {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(MainClass.class.getResource("scenes/game/ChooseDifficultyScene.fxml"));
+		loader.setLocation(MainClass.class.getResource("scenes/main/MainScene.fxml"));
 		try {
-			VBox chooseDifficultySceneContainer = (VBox) loader.load();
-			mainContainer.setCenter(chooseDifficultySceneContainer);
+			BorderPane mainSceneContainer = (BorderPane) loader.load();
 			
-			ChooseDifficultySceneController chooseDifficultySceneController = loader.getController();
-			chooseDifficultySceneController.setMainApp(this);
+			mainContainer.setCenter(mainSceneContainer);
+			
+			MainSceneController mainSceneController = loader.getController();
+			mainSceneController.setMainApp(this);
+			mainSceneController.init();
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void initGameScene(GameDifficulty difficulty) {
-		FXMLLoader loader = new FXMLLoader();
-		
-		switch(difficulty) {
-			case EASY:
-				loader.setLocation(MainClass.class.getResource("scenes/game/easy/GameSceneEasy.fxml"));
-				break;
-			case MEDIUM:
-				loader.setLocation(MainClass.class.getResource("scenes/game/medium/GameSceneMedium.fxml"));
-				break;
-			case HARD:
-				loader.setLocation(MainClass.class.getResource("scenes/game/hard/GameSceneHard.fxml"));
-				break;
-		}
-		
-		try {
-			GridPane gameSceneContainer = (GridPane) loader.load();
-			mainContainer.setCenter(gameSceneContainer);
-			
-			GameSceneEasyController gameSceneController = loader.getController();
-			gameSceneController.setMainApp(this);
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 }

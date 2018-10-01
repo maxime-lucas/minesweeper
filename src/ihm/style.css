@@ -1,0 +1,39 @@
+#mainContainer {
+	-fx-background-image: url("/minesweeper_background.png");
+	-fx-background-repeat: no-repeat;   
+    -fx-background-position: center;
+    -fx-background-size: cover;
+}
+
+.form-textfield {
+	-fx-background-color: #e6e6e6;
+	-fx-font-size: 18px;
+}
+
+.form-cmb {
+	-fx-background-color: #e6e6e6;
+	-fx-font-size: 18px;
+}
+
+.form-label {
+	-fx-font-size: 18px;
+}
+
+.btn {
+	-fx-font-size: 24px;
+	-fx-font-family: "Stag Book";
+}
+
+.btn:hover {
+	-fx-cursor: pointer;
+}
+
+.btn-green {
+	-fx-background-color: #22e79b;
+	-fx-text-fill: white;
+}
+
+.btn-red {
+	-fx-background-color: #ff3f38;
+	-fx-text-fill: white;
+}
